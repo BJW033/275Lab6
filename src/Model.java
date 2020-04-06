@@ -2,14 +2,22 @@
  *  Brandon Wu 
  */
 public class Model {
+	//Where the object is
 	private double xloc=0;
 	private double yloc=0;
-	double xIncrRef = 8;
-	double yIncrRef = 3;
+	//The values in each direction the object moves off the start
 	double xIncr = 8;
 	double yIncr = 3;
+	//Saves the initial values of Incr variables
+	final double xIncrRef = xIncr;
+	final double yIncrRef = yIncr;
+	//Incr when the object is stopped
+	double xStopped = 0;
+	double yStopped = 0;
+	//Vectors of direction with a +/- and zero
 	double xIncrD[] = { -xIncr, 0, xIncr };
 	double yIncrD[] = { -yIncr, 0, yIncr };
+	//Strings of direction
 	String directionX ="east";
 	String directionY="south";
 	private Direction going=Direction.SOUTHEAST;
@@ -18,6 +26,7 @@ public class Model {
 	int imgWidth;
 	int imgHeight;
 	BassMode mode = BassMode.DEFAULT;
+	StartStop SS = StartStop.START;
 	
 	public Model(int CanvasWidth, int CanvasHeight, int ImageWidth,int ImageHeight) {
 		canvasWidth = CanvasWidth;
@@ -130,6 +139,8 @@ public class Model {
 	 * Sets the going direction to the new Direction Enum
 	 * Sets the directionX/Y to the appropriate strings
 	 * Sets the x and y Incr's to the appropriate North, South, East, West directions
+	 * If the fish is stopped, xStopped and yStopped change and will be used when the 
+	 * fish restarts
 	 */
 	public void setDirection(Direction d) {
 		going = d;
@@ -137,26 +148,53 @@ public class Model {
 			case NORTH:
 				directionY = "north";
 				directionX = "";
-				xIncr = xIncrD[1];
-				yIncr = yIncrD[0];
+				if(SS == StartStop.STOP) {
+					xStopped = xIncrD[1];
+					yStopped = yIncrD[0];
+				}
+				else {
+					xIncr = xIncrD[1];
+					yIncr = yIncrD[0];
+				}
 				break;
 			case SOUTH:
 				directionY = "south";
 				directionX = "";
-				xIncr = xIncrD[1];
-				yIncr = yIncrD[2];
+				if(SS == StartStop.STOP) {
+					xStopped = xIncrD[1];
+					yStopped = yIncrD[2];
+				}
+				else {
+					xIncr = xIncrD[1];
+					yIncr = yIncrD[2];
+				}
+				
 				break;
 			case EAST:
 				directionX = "east";
 				directionY = "";
-				xIncr = xIncrD[2];
-				yIncr = yIncrD[1];
+				if(SS == StartStop.STOP) {
+					xStopped = xIncrD[2];
+					yStopped = yIncrD[1];
+				}
+				else {
+					xIncr = xIncrD[2];
+					yIncr = yIncrD[1];
+				}
+				
 				break;
 			case WEST:
 				directionX = "west";
 				directionY = "";
-				xIncr = xIncrD[0];
-				yIncr = yIncrD[1];
+				if(SS == StartStop.STOP) {
+					xStopped = xIncrD[0];
+					yStopped = yIncrD[1];
+				}
+				else {
+					xIncr = xIncrD[0];
+					yIncr = yIncrD[1];
+				}
+				
 				break;
 				
 		}
@@ -217,6 +255,28 @@ public class Model {
 				yIncrD[a] = yIncrD[a] * x;
 			}
 			
+		}
+	}
+
+/*Called when the button indicating starting and stopping is pressed.
+ * xStopped and yStopped are used to store the values of the fish when it stops and the Incr's 
+ * become zero. If the fist restarts, the Incr's become the values stored in their respective
+ * Stopped variables.
+ * 
+ */
+	public void setStartStop(StartStop s) {
+		SS = s;
+		switch(s) {
+			case START:
+				xIncr = xStopped;
+				yIncr = yStopped;
+				break;
+			case STOP:
+				xStopped = xIncr;
+				yStopped = yIncr;
+				xIncr = xIncrD[1];
+				yIncr = yIncrD[1];
+				break;
 		}
 	}
 }

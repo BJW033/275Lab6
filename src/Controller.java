@@ -13,7 +13,7 @@ public class Controller extends Application{
 	//data fields hold Model and View
 	private Model model;
 	private View view;
-
+	private int StartStopCnt =0;
 	
     public static void main(String[] args) {
         launch(args);
@@ -58,6 +58,18 @@ public class Controller extends Application{
                         model.setBassMode(BassMode.ATTAC);
                     }
                 });
+            	view.b.setOnMouseClicked(ky-> {
+            		StartStopCnt++;
+            		if(StartStopCnt%2==0) {
+                        System.out.println("Fish Start");
+                        model.setStartStop(StartStop.START);
+            		}
+            		else {
+            			System.out.println("Fish Stop");
+            			model.setStartStop(StartStop.STOP);
+            		}
+                     
+            	});
                 //increment the x and y coordinates, alter direction if necessary
                 model.updateLocationandDirection();
                 //input the x coordinates, y coordinates, and Direction 

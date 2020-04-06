@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -86,7 +87,7 @@ public class View{
 	//variables to determine the location of image
 	double x = 0;
 	double y = 0;
-	
+	Button b;
 	//View constructor initialize the starting position for the image
 	//Called in controller
 	public View(Stage theStage) {
@@ -99,7 +100,10 @@ public class View{
         Canvas canvas = new Canvas(canvasWidth, canvasHeight);
         root.getChildren().add(canvas);
         gc = canvas.getGraphicsContext2D();
-
+        
+        
+        b = new Button("Start/Stop");
+        root.getChildren().add(b);
 		// bassMode starts with DEFAULT
         bassMode = BassMode.DEFAULT;
 		importImages();
