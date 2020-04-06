@@ -1,3 +1,5 @@
+//Used to determine if the object is moving
+//Brandon Wu
 
 public enum StartStop {
 	START("start"), STOP("stop");

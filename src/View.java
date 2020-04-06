@@ -27,6 +27,7 @@ import java.util.Random;
 
 
 /**
+ * Given to and modified by Brandon Wu by Vineeth Gutta
  * This is a drop in replacement View for the ORC MVC Lab. It will animate
  * a poorly-drawn striped bass in a similar manner to the orc. However, 
  * instead of loading prexisting images of different directions, 
